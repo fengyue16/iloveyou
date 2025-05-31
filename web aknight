@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>arknight</title>
+
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+.item {
+  width: 200px;
+  height: 150px;
+  list-style-type: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  background-position: center;
+  background-size: cover;
+  border-radius: 20px;
+  box-shadow: 0 20px 30px rgba(255,255,255,0.3) inset;
+  transition: transform 0.1s, left 0.75s, top 0.75s, width 0.75s, height 0.75s;
+
+  &:nth-child(1), &:nth-child(2) {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transform: none;
+    border-radius: 0;
+    box-shadow: none;
+    opacity: 1;
+  }
+
+  &:nth-child(3) { left: 68%; }
+  &:nth-child(4) { left: calc(68% + 220px); }
+  &:nth-child(5) { left: calc(68% + 440px);  opacity: 0; }
+  &:nth-child(6) { left: calc(68% + 660px); opacity: 0; }
+}
+
+.content {
+  width: min(30vw,400px);
+  position: absolute;
+  top: 50%;
+  left: 3rem;
+  transform: translateY(-50%);
+  font: 400 0.85rem helvetica,sans-serif;
+  color: white;
+  text-shadow: 0 3px 8px rgba(0,0,0,0.5);
+  opacity: 0;
+  display: block;
+ 
+
+  & .title {
+    font-family: 'arial-black';
+    text-transform: uppercase;
+  }
+
+  & .description {
+    line-height: 1.7;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.8rem;
+  }
+
+  & button {
+    width: fit-content;
+    background-color: rgba(0,0,0,0.1);
+    color: white;
+    border: 2px solid white;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    cursor: pointer;
+  }
+}
+
+.item:nth-of-type(2) .content {
+  display: block;
+  animation: show 0.75s ease-in-out 0.3s forwards;
+}
+
+@keyframes show {
+  0% {
+    filter: blur(5px);
+    transform: translateY(calc(-50% + 75px));
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.nav {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  user-select: none;
+
+  & .btn {
+    background-color: rgba(255,255,255,0.5);
+    color: rgba(0,0,0,0.7);
+    border: 2px solid rgba(0,0,0,0.6);
+    margin: 0 0.25rem;
+    padding: 0.75rem;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(255,255,255,0.3);
+    }
+  }
+}
+
+@media (width > 650px) and (width < 900px) {
+  .content {
+    & .title        { font-size: 1rem; }
+    & .description  { font-size: 0.7rem; }
+    & button        { font-size: 0.7rem; }
+  }
+  .item {
+    width: 160px;
+    height: 270px;
+
+    &:nth-child(3) { left: 50%; }
+    &:nth-child(4) { left: calc(50% + 170px); }
+    &:nth-child(5) { left: calc(50% + 340px); }
+    &:nth-child(6) { left: calc(50% + 510px); opacity: 0; }
+  }
+}
+
+@media (width < 650px) {
+  .content {
+    & .title        { font-size: 0.9rem; }
+    & .description  { font-size: 0.65rem; }
+    & button        { font-size: 0.7rem; }
+  }
+  .item {
+    width: 130px;
+    height: 220px;
+
+    &:nth-child(3) { left: 50%; }
+    &:nth-child(4) { left: calc(50% + 140px); }
+    &:nth-child(5) { left: calc(50% + 280px); }
+    &:nth-child(6) { left: calc(50% + 420px); opacity: 0; }
+  }
+}
+
+
+
+
+  </style>
+
+  
+</head>
+<body>
+  <!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="feng yue">
+    <title>Arknight</title>
+    <style>    body {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        font-family: 'Bookman', 'Arial', sans-serif;
+      }
+
+      .site-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 2rem;
+        background-color: #2a363b;
+        color: #45ada8;
+        z-index: 100;
+        width: 100%;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+     
+
+      h1 {
+        font-size: 1.2rem;
+        margin: 0;
+      }
+
+      .main-nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: 1.5rem;
+      }
+
+      .main-nav a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 0;
+        font-size: 0.9rem;
+        position: relative;
+      }
+
+      .main-nav a.active::after,
+      .main-nav a:hover::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: white;
+      }
+
+      main {
+        position: relative;
+        width: 100%;
+        flex: 1;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        display: grid;
+        place-items: center;
+      }
+
+      .item {
+        width: 200px;
+        height: 150px;
+        list-style-type: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        background-position: center;
+        background-size: cover;
+        border-radius: 20px;
+        box-shadow: 0 20px 30px rgba(255,255,255,0.3) inset;
+        transition: transform 0.1s, left 0.75s, top 0.75s, width 0.75s, height 0.75s;
+      }
+
+      .item:nth-child(1), .item:nth-child(2) {
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        transform: none;
+        border-radius: 0;
+        box-shadow: none;
+        opacity: 1;
+      }
+
+      .item:nth-child(3) { left: 68%; }
+      .item:nth-child(4) { left: calc(68% + 220px); }
+      .item:nth-child(5) { left: calc(68% + 440px);  opacity: 0; }
+      .item:nth-child(6) { left: calc(68% + 660px); opacity: 0; }
+
+      .content {
+        width: min(30vw,400px);
+        position: absolute;
+        top: 50%;
+        left: 3rem;
+        transform: translateY(-50%);
+        font: 400 0.85rem helvetica,sans-serif;
+        color: white;
+        text-shadow: 0 3px 8px rgba(0,0,0,0.5);
+        opacity: 0;
+        display: block;
+      }
+
+      .content .title {
+        font-family: 'arial-black';
+        text-transform: uppercase;
+      }
+
+      .content .description {
+        line-height: 1.7;
+        margin: 1rem 0 1.5rem;
+        font-size: 0.8rem;
+      }
+
+      .content button {
+        width: fit-content;
+        background-color: rgba(0,0,0,0.1);
+        color: white;
+        border: 2px solid white;
+        border-radius: 0.25rem;
+        padding: 0.75rem;
+        cursor: pointer;
+      }
+
+      .item:nth-of-type(2) .content {
+        display: block;
+        animation: show 0.75s ease-in-out 0.3s forwards;
+      }
+
+      @keyframes show {
+        0% {
+          filter: blur(5px);
+          transform: translateY(calc(-50% + 75px));
+        }
+        100% {
+          opacity: 1;
+          filter: blur(0);
+        }
+      }
+
+      .nav {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 5;
+        user-select: none;
+      }
+
+      .nav .btn {
+        background-color: rgba(255,255,255,0.5);
+        color: rgba(0,0,0,0.7);
+        border: 2px solid rgba(0,0,0,0.6);
+        margin: 0 0.25rem;
+        padding: 0.75rem;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      .nav .btn:hover {
+        background-color: rgba(255,255,255,0.3);
+      }
+
+      @media (width > 650px) and (width < 900px) {
+        .content .title { font-size: 1rem; }
+        .content .description { font-size: 0.7rem; }
+        .content button { font-size: 0.7rem; }
+        
+        .item {
+          width: 160px;
+          height: 270px;
+        }
+
+        .item:nth-child(3) { left: 50%; }
+        .item:nth-child(4) { left: calc(50% + 170px); }
+        .item:nth-child(5) { left: calc(50% + 340px); }
+        .item:nth-child(6) { left: calc(50% + 510px); opacity: 0; }
+      }
+
+      @media (width < 650px) {
+        .content .title { font-size: 0.9rem; }
+        .content .description { font-size: 0.65rem; }
+        .content button { font-size: 0.7rem; }
+        
+        .item {
+          width: 130px;
+          height: 220px;
+        }
+
+        .item:nth-child(3) { left: 50%; }
+        .item:nth-child(4) { left: calc(50% + 140px); }
+        .item:nth-child(5) { left: calc(50% + 280px); }
+        .item:nth-child(6) { left: calc(50% + 420px); opacity: 0; }
+      }
+    </style>
+    </head>
+     
+    <header class="site-header">
+      
+       
+        <h1>Arknight</h1>
+    
+      <nav class="main-nav">
+        <ul>
+          <li><a href="#" class="active">Trang chủ</a></li>
+          
+          <li><a href="#">Thông tin</a></li>
+          <li><a href="#">Sự kiện</a></li>
+          <li><a href="#"></a><div class="search-bar">
+            <input type="text" placeholder="Tìm kiếm...">
+        </div></li>
+          <li><a href="#">Log in</a></li>
+          <div class="language">
+            <select>
+                <option value="vi">Tiếng Việt</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+        </ul>
+      </nav>
+    </header>
+<body>
+   
+   
+    <main>
+  <ul class='slider'>
+    <li class='item' style="background-image: url('https://embed.pixiv.net/artwork.php?illust_id=115809914&mdate=1707187138')">
+      <div class='content'>
+        <h2 class='title'>"NIAN"</h2>
+        <p class='description'> Luân hồi rực cháy – Bước chân khai mở vận mệnh. </p>
+        <button>Read More</button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('https://embed.pixiv.net/artwork.php?illust_id=95958544&mdate=1643814017')">
+      <div class='content'>
+        <h2 class='title'>"DUSK"</h2>
+        <p class='description'>Nơi gió xuân chẳng bao giờ thổi, cô ấy vẫn đứng đó – như một bóng hình vĩnh cửu giữa lằn ranh của mộng và thực. </p>
+        <button>Read More</button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('https://images6.alphacoders.com/117/1171881.jpg')">
+      <div class='content'>
+        <h2 class='title'>"SURTR"</h2>
+        <p class='description'> Ngọn lửa kiêu hãnh – Sức mạnh bùng cháy giữa chiến trường. </p>
+        <button>Read More</button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('https://i.ytimg.com/vi/djqGiomzcYs/maxresdefault.jpg')">
+      <div class='content'>
+        <h2 class='title'>"GAVIAL"</h2>
+        <p class='description'>
+          Cơn gió hoang dại – Ý chí kiên cường giữa bão tố.
+        </p>
+        <button>Read More</button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('https://arknights.wiki.gg/images/thumb/d/dd/Wrath_of_Sui.png/1200px-Wrath_of_Sui.png')">
+      <div class='content'>
+        <h2 class='title'>"SUI"</h2>
+        <p class='description'>
+         Bóng tối và vương quyền – Nữ chiến thần giữa cơn sóng dữ.
+        </p>
+        <button>Read More</button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('https://i.redd.it/7jv9xseiw5gc1.png')">
+      <div class='content'>
+        <h2 class='title'>"SHU"</h2>
+        <p class='description'> Thần Nông giáng thế – Hơi thở đất trời và sự sống vĩnh cửu. </p>
+        <button>Read More</button>
+      </div>
+    </li>
+  </ul>
+  <nav class='nav'>
+    <ion-icon class='btn prev' name="arrow-back-outline"></ion-icon>
+    <ion-icon class='btn next' name="arrow-forward-outline"></ion-icon>
+  </nav>
+</main>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
+
+  <script>
+    const slider = document.querySelector('.slider');
+
+function activate(e) {
+  const items = document.querySelectorAll('.item');
+  e.target.matches('.next') && slider.append(items[0])
+  e.target.matches('.prev') && slider.prepend(items[items.length-1]);
+}
+
+document.addEventListener('click',activate,false);
+  </script>
+</body>
+</html>
