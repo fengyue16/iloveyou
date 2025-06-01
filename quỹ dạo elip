@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ellipse Text Animation</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+    body {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      background: #111;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      margin: 0;
+      position: relative;
+    }
+
+    .ellipse1,
+    .ellipse2 {
+      position: absolute;
+      width: min(63vw, 63vh);
+    }
+
+    .ellipse1 svg {
+      transform: rotate(-50deg);
+      width: 400px;
+      height: 400px;
+    }
+
+    .ellipse2 svg {
+      transform: rotate(50deg);
+      width: 400px;
+      height: 400px;
+    }
+
+    .ellipse1 svg text,
+    .ellipse2 svg text {
+      fill: #f4c;
+      font-weight: 700;
+      font-family: 'DM Sans', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div class="ellipse1">
+    <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+      <path d="M227 120C227 142.091 178.871 160 119.5 160C60.1294 160 12 142.091 12 120C12 97.9086 60.1294 80 119.5 80C178.871 80 227 97.9086 227 120Z" fill="none" />
+    </svg>
+  </div>
+  <div class="ellipse2">
+    <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+      <path d="M227 120C227 142.091 178.871 160 119.5 160C60.1294 160 12 142.091 12 120C12 97.9086 60.1294 80 119.5 80C178.871 80 227 97.9086 227 120Z" fill="none" />
+    </svg>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    const createAnimation = ({
+      duration = 21,
+      reversed = false,
+      target,
+      text,
+      textProperties
+    }) => {
+      const pathId = `path-${Math.floor(Math.random() * 900000 + 100000)}`;
+      const path = target.querySelector("path");
+      const props = { duration, ease: "none", repeat: -1 };
+
+      // Set attributes for path
+      path.setAttribute("id", pathId);
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", "none");
+
+      const textElement = `
+        <text>
+          <textPath href="#${pathId}" startOffset="0%">${text}</textPath>
+          <textPath href="#${pathId}" startOffset="0%">${text}</textPath>
+        </text>
+      `;
+      target.insertAdjacentHTML("beforeend", textElement);
+
+      const [tp1, tp2] = target.querySelectorAll("textPath");
+
+      if (textProperties) {
+        gsap.set([tp1, tp2], textProperties);
+      }
+
+      gsap.fromTo(
+        tp1,
+        { attr: { startOffset: "0%" } },
+        { attr: { startOffset: reversed ? "-100%" : "100%" }, ...props }
+      );
+      gsap.fromTo(
+        tp2,
+        { attr: { startOffset: reversed ? "100%" : "-100%" } },
+        { attr: { startOffset: "0%" }, ...props }
+      );
+    };
+
+    // Run animations
+    [".ellipse1 svg", ".ellipse2 svg"].forEach(selector => {
+      createAnimation({
+        duration: 21,
+        reversed: true,
+        target: document.querySelector(selector),
+        text: "Innovation distinguishes between a leader and a follower.",
+        textProperties: {
+          fontSize: /iPhone/.test(navigator.userAgent) ? "19px" : "17px"
+        }
+      });
+    });
+  </script>
+</body>
+</html>
