@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vortex Chain</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+      filter: blur(0.6px) brightness(1.2);
+      background: radial-gradient(ellipse at top, #0b1d3a 0%, #000 100%);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function R(r, g, b, a = 1) {
+      return `rgba(${~~r},${~~g},${~~b},${a})`;
+    }
+
+    function drawVortexChain(t) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const vortexes = [
+        {x: canvas.width * 0.3, y: canvas.height * 0.4, baseR: 80, color: [255, 230, 150]},
+        {x: canvas.width * 0.7, y: canvas.height * 0.5, baseR: 120, color: [200, 240, 255]},
+        {x: canvas.width * 0.5, y: canvas.height * 0.3, baseR: 60, color: [255, 255, 180]}
+      ];
+
+      vortexes.forEach((v) => {
+        for (let i = 200; i--;) {
+          const angle = i / 10 + t * 0.6;
+          const r = v.baseR + 30 * Math.sin(i / 7 + t);
+          const x = v.x + r * Math.cos(angle);
+          const y = v.y + r * Math.sin(angle);
+
+          ctx.beginPath();
+          ctx.arc(x, y, 2 + Math.sin(t + i) * 1.5, 0, 2 * Math.PI);
+          ctx.fillStyle = R(v.color[0], v.color[1] - i, v.color[2] - i/2, 0.7);
+          ctx.fill();
+        }
+      });
+    }
+
+    let start = Date.now();
+    function animate() {
+      const t = (Date.now() - start) / 1000;
+      drawVortexChain(t);
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
