@@ -1,0 +1,88 @@
+/*google-fonts*/
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --body-color: #181c1f;
+  --primary-color: #96cbf2;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--body-color);
+}
+
+.container {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255, 255, 255, .1);
+  /*Thêm hiệu ứng phản chiếu dạng chuyển sắc từ dưới lên để tăng chiều sâu thị giác.*/
+  -webkit-box-reflect: below 1px linear-gradient(transparent, transparent, transparent, transparent, #0005);
+}
+
+.cloud {
+  position: relative;
+  top: 50px;
+  z-index: 100;
+
+  /* Đám mây nằm ngang */
+  width: 320px;
+  height: 100px;
+  background-color: var(--primary-color);
+  border-radius: 100px;
+
+  /* Hàm drop-shadow áp dụng hiệu ứng bóng cho hình ảnh được đổ bóng */
+  filter: drop-shadow(0 0 30px var(--primary-color));
+}
+.cloud::before {
+  content: "";
+  /* Đám mây nhỏ ở bên trái */
+  width: 110px;
+  height: 110px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  position: absolute;
+  top: -50px;
+  left: 40px;
+
+  /* Đám mây lớn bên phải */
+  box-shadow: 90px 0 0 30px var(--primary-color);
+}
+
+.cloud .text {
+  position: absolute;
+  top: 40px;
+  height: 20px;
+  line-height: 20px;
+
+  text-transform: uppercase;
+  color: var(--primary-color);
+  /* Thêm bóng cho văn bản để trông như phát sáng, tăng hiệu ứng thị giác*/
+  text-shadow: 0 0 5px var(--primary-color), 0 0 15px var(--primary-color), 0 0 30px var(--primary-color);
+  transform-origin: bottom;
+  animation: animate 2s linear forwards;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateX(0);
+  }
+
+  70% {
+    transform: translateY(290px);
+  }
+
+  100% {
+    transform: translateY(290px);
+  }
+}
+
