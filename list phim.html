@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List phim</title>
+  <style>
+     * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --wall-item-height: 180px;
+  --wall-item-width: 300px;
+  --wall-item-number: 6;
+  --duration: 10s;
+}
+
+body {
+  padding: 50px ;
+  background-color: #000;
+}
+
+@keyframes scrolling {
+  to {
+    transform: translateX(calc(var(--wall-item-width) * -1));
+  }
+}
+ 
+.wall {
+  margin: 30px auto 60px auto;
+  height: var(--wall-item-height);
+  width: calc(var(--wall-item-width) * var(--wall-item-number));
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(90deg, hsl(0 0% 0% / 0),
+      hsl(0 0% 0% / 1) 20%,
+      hsl(0 0% 0% / 1) 80%,
+      hsl(0 0% 0% / 0));
+}
+
+.wall .wall-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(calc(var(--wall-item-width) * var(--wall-item-number)));
+  height: var(--wall-item-height);
+  width: var(--wall-item-width);
+  animation: scrolling var(--duration) linear infinite;
+  cursor: pointer;
+  overflow: hidden; 
+  background: none; 
+  border-radius: 12px;
+}
+
+.wall .wall-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  display: block;
+}
+
+.wall[data-direction="reverse"] .wall-item {
+  animation-direction: reverse;
+}
+
+.wall .wall-item:nth-child(1) {
+  animation-delay: calc((var(--duration) / var(--wall-item-number)) * (var(--wall-item-number) - 1) * -1);
+}
+
+.wall .wall-item:nth-child(2) {
+  animation-delay: calc((var(--duration) / var(--wall-item-number)) * (var(--wall-item-number) - 2) * -1);
+}
+
+.wall .wall-item:nth-child(3) {
+  animation-delay: calc((var(--duration) / var(--wall-item-number)) * (var(--wall-item-number) - 3) * -1);
+}
+
+.wall .wall-item:nth-child(4) {
+  animation-delay: calc((var(--duration) / var(--wall-item-number)) * (var(--wall-item-number) - 4) * -1);
+}
+
+.wall .wall-item:nth-child(5) {
+  animation-delay: calc((var(--duration) / var(--wall-item-number)) * (var(--wall-item-number) - 5) * -1);
+}
+
+.wall .wall-item:nth-child(6) {
+  animation-delay: calc((var(--duration) / var(--wall-item-number)) * (var(--wall-item-number) - 6) * -1);
+}
+
+.wall:has(.wall-item:hover) .wall-item {
+  animation-play-state: paused;
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="wall" style="--duration:10s">
+    <div class="wall-item"><img src="https://images.fptplay53.net/media/OTT/VOD/2025/06/02/lam-giang-tien-fpt-play-1748860143947_Landscape.jpg"></div>
+    <div class="wall-item"><img src="https://homepage.momocdn.net/blogscontents/momo-amazone-s3-api-250527151553-638839557535828143.jpg"></div>
+    <div class="wall-item"><img src="https://images.fptplay53.net/media/OTT/VOD/2025/06/10/tang-hai-truyen-fpt-play-1749550207099_Landscape.jpg"></div>
+    <div class="wall-item"><img src="https://st.download.com.vn/data/image/2025/05/13/khom-lung-700.jpg"></div>
+    <div class="wall-item"><img src="https://bloganchoi.com/wp-content/uploads/2025/02/lich-chieu-phim-kho-do-danh-2025-2.jpg"></div>
+    <div class="wall-item"><img src="https://bazaarvietnam.vn/wp-content/uploads/2025/05/harper-bazaar-phim-sa-vao-tinh-yeu-cuong-nhiet-cua-chung-ta-be-passionately-in-love-3.webp"></div>    
+   
+  </div>
+  <div class="wall" data-direction="reverse" style="--wall-item-number:6">
+    <div class="wall-item"><img src="https://static.nutscdn.com/vimg/400-0/51afd0336d178ddc47b64cb3790bf438.jpg"></div>
+    <div class="wall-item"><img src="https://newsmd2fr.keeng.vn/tiin/archive/imageslead/2024/06/06/suao9xecmmumqvkm0p6ovgx8yyjo6ezk.jpg"></div>
+    <div class="wall-item"><img src="https://static.nutscdn.com/vimg/400-0/7230af672bb85f672e0978639214d39a.jpg"></div>
+    <div class="wall-item"><img src="https://dep.com.vn/wp-content/uploads/2025/02/NPLM-1.jpg"></div>
+    <div class="wall-item"><img src="https://static2.vieon.vn/vieplay-image/thumbnail_v4/2025/04/25/bv4ssxpj_1920x1080-hoaithuytrucdinh1.png"></div>
+    <div class="wall-item"><img src="https://pic7.iqiyipic.com/image/20250108/e0/3c/a_100563314_m_601_vi_m1_1080_608.jpg"></div>
+   
+  </div>
+</body>
+
+</html>
+
