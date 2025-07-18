@@ -1,0 +1,350 @@
+<!doctype html>
+<html>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+<div class="scene">
+  <div class="carousel" id="carousel">
+    <div class="card" id="card1" data-id="card1">
+      <img src="https://s1.zerochan.net/The.Candle.Knight.Viviana.600.4067889.jpg">
+      <h3>Viviana</h3>
+    </div>
+    <div class="card" id="card2" data-id="card2">
+      <img src="https://i.pinimg.com/736x/c6/95/6f/c6956f8547a6a9972dbca5ae5e1ae212.jpg">
+      <h3>Shu</h3>
+    </div>
+    <div class="card" id="card3" data-id="card3">
+      <img src="https://p4.wallpaperbetter.com/wallpaper/103/602/556/arknights-dusk-arknights-anime-girls-hd-wallpaper-preview.jpg">
+      <h3>Dusk</h3>
+    </div>
+    <div class="card" id="card4" data-id="card4">
+      <img src="https://i.pinimg.com/736x/03/db/6b/03db6b72afa99190161ae66d5e6e6c71.jpg">
+      <h3>Qiubai</h3>
+    </div>
+    <div class="card" id="card5" data-id="card5">
+      <img src="https://static.zerochan.net/Ling.%28Arknights%29.full.3573187.jpg">
+      <h3>Ling</h3>
+    </div>
+  </div>
+</div>
+
+<style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden; 
+    }
+
+    body {
+      font-family: "Roboto", sans-serif;
+      letter-spacing: 0.4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top left, #1f1c2c, #928dab);
+      background-color: #0a0f2c;
+      background-image: radial-gradient(
+          circle at 20% 30%,
+          rgba(0, 255, 255, 0.05) 0%,
+          transparent 70%
+        ),
+        radial-gradient(
+          circle at 80% 70%,
+          rgba(255, 0, 150, 0.04) 0%,
+          transparent 70%
+        ),
+       url("https://wanuxi-storage.sgp1.cdn.digitaloceanspaces.com/2021/02/arknights-image1.jpg");
+      background-repeat: repeat;
+      background-size: cover;
+      color: #fff;
+    }
+
+    h2 {
+      font-weight: 500;
+      font-size: 16px;
+      margin: 0;
+      background: linear-gradient(185deg, #0281e2, #f4f3f5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h3 {
+      font-weight: 500;
+      font-size: 16px;
+      margin: 0;
+      background: linear-gradient(90deg, #ff05f2, #f7d9f5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .scene {
+      perspective: 1200px;
+      width: 80%;
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+    }
+
+    .card {
+      position: absolute;
+      width: 180px;
+      height: 240px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, z-index 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-align: center;
+      cursor: pointer;
+      transform-origin: center center;
+      animation-name: glow;
+      animation-duration: 1.3s;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .card img:hover {
+      animation: scale-up 0.5s ease forwards;
+    }
+
+    @keyframes scale-up {
+      to {
+        transform: scale(1.3);
+      }
+    }
+
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 5px #2980b9;
+      }
+      50% {
+        box-shadow: 0 0 10px #cc0590;
+      }
+      100% {
+        box-shadow: 0 0 15px #2980b9;
+      }
+    }
+
+    .card h3 {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 1024px) {
+      .scene {
+        width: 100%;
+        height: 340px;
+      }
+
+      .card {
+        width: 140px;
+        height: 190px;
+      }
+
+      .card h3 {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .scene {
+        height: 300px;
+      }
+
+      .carousel {
+        transform: scale(0.9);
+      }
+
+      .card {
+        width: 120px;
+        height: 160px;
+        margin: 0;
+      }
+
+      .card h3 {
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .scene {
+        height: 270px;
+      }
+
+      .carousel {
+        transform: scale(0.8);
+      }
+
+      .card {
+        width: 100px;
+        height: 140px;
+      }
+
+      .card h3 {
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .scene {
+        height: 250px;
+      }
+
+      .carousel {
+        transform: scale(0.75);
+      }
+
+      .card {
+        width: 90px;
+        height: 130px;
+      }
+
+      .card h3 {
+        font-size: 11px;
+      }
+    }
+</style>
+
+<script>
+
+const carousel = document.getElementById("carousel");
+const cards = carousel.querySelectorAll(".card");
+let currentCardIndex = 0;
+const totalCards = cards.length;
+let rotationInterval = null;
+let isPopupOpen = false;
+
+function getResponsiveSettings() {
+  const width = window.innerWidth;
+
+  if (width <= 400) return { rotationStep: 45, radius: 160 }; 
+  if (width <= 600) return { rotationStep: 50, radius: 200 }; 
+  if (width <= 768) return { rotationStep: 60, radius: 260 }; 
+  return { rotationStep: 72, radius: 350 }; 
+}
+
+function setCardPositions() {
+  const { rotationStep, radius } = getResponsiveSettings();
+  cards.forEach((card, i) => {
+    const rotateY = i * rotationStep;
+    const angleRad = (rotateY * Math.PI) / 180;
+    const x = Math.sin(angleRad) * radius;
+    const z = Math.cos(angleRad) * radius;
+    card.style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${rotateY}deg)`;
+  });
+  rotateCarousel();
+  updateCardSize();
+}
+
+function updateCardSize() {
+  cards.forEach((card, i) => {
+    if (i === currentCardIndex) {
+      card.style.transform += " scale(1.2)";
+      card.style.zIndex = "1";
+    } else {
+      card.style.transform = card.style.transform.replace(" scale(1.2)", "");
+      card.style.zIndex = "0";
+    }
+  });
+}
+
+function rotateCarousel() {
+  const { rotationStep } = getResponsiveSettings();
+  const rotateDeg = -rotationStep * currentCardIndex;
+  carousel.style.transform = `rotateY(${rotateDeg}deg)`;
+}
+
+function startRotation() {
+  if (rotationInterval || isPopupOpen) return;
+  rotationInterval = setInterval(() => {
+    currentCardIndex = (currentCardIndex + 1) % totalCards;
+    setCardPositions();
+  }, 1400);
+}
+
+function stopRotation() {
+  if (rotationInterval) {
+    clearInterval(rotationInterval);
+    rotationInterval = null;
+  }
+}
+
+carousel.addEventListener("mouseover", () => {
+  if (!isPopupOpen) stopRotation();
+});
+
+carousel.addEventListener("mouseout", () => {
+  if (!isPopupOpen) startRotation();
+});
+
+carousel.addEventListener("touchstart", () => {
+  if (!isPopupOpen) stopRotation();
+});
+
+carousel.addEventListener("touchend", () => {
+  if (!isPopupOpen) startRotation();
+});
+
+function showPopup(cardId) {
+  const popup = document.getElementById(`popup-${cardId}`);
+  if (popup) {
+    popup.classList.add("show");
+    isPopupOpen = true;
+    stopRotation();
+  }
+}
+
+function closePopup() {
+  document.querySelectorAll(".popup").forEach((popup) => {
+    popup.classList.remove("show");
+  });
+  isPopupOpen = false;
+  startRotation();
+}
+
+cards.forEach((card) => {
+  card.addEventListener("click", () => {
+    const cardId = card.dataset.id;
+    showPopup(cardId);
+  });
+});
+
+setCardPositions();
+startRotation();
+
+window.addEventListener("resize", () => {
+  setCardPositions();
+});
+</script>
+</html>
