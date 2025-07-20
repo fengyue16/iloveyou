@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title> Particle Animation + Heart </title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <style>
+    html, body, #container, canvas {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      overflow: hidden;
+      background: #040307;
+      background-image:
+        radial-gradient(circle at 50% 35%, #1d1431 0%, transparent 65%),
+        linear-gradient(180deg, #000000 0%, #070012 100%);
+      color: #eee;
+    }
+
+    .vignette {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9;
+      background: radial-gradient(circle at center, rgba(0,0,0,0) 65%, rgba(0,0,0,.5) 100%);
+    }
+
+    .instructions {
+      position: fixed;
+      left: 24px;
+      bottom: 24px;
+      padding: 10px 20px;
+      font-size: 12px;
+      color: #d0b0ff;
+      background: rgba(18, 15, 40, 0.25);
+      border: 1px solid rgba(122, 70, 255, 0.28);
+      border-radius: 12px;
+      backdrop-filter: blur(12px);
+      pointer-events: none;
+      z-index: 10;
+      box-shadow: 0 4px 20px rgba(0,0,0,.45);
+    }
+  </style>
+
+  <!-- Module import map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="container"></div>
+  <div class="vignette"></div>
+
+  <script type="module">
+ import * as THREE from "three";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+    import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+    import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+    import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+    import { AfterimagePass } from "three/addons/postprocessing/AfterimagePass.js";
+    import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+    import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+    const STAR_COUNT = 7000;
+    const RADIUS = 900;
+    let scene, camera, renderer, composer, controls, stars, heartModel;
+    const clock = new THREE.Clock();
+
+    function createStars() {
+      const geo = new THREE.BufferGeometry();
+      const pos = new Float32Array(STAR_COUNT * 3);
+      const col = new Float32Array(STAR_COUNT * 3);
+      const size = new Float32Array(STAR_COUNT);
+      const rnd = new Float32Array(STAR_COUNT);
+
+      for (let i = 0; i < STAR_COUNT; i++) {
+        const i3 = i * 3;
+        const θ = Math.random() * 2 * Math.PI;
+        const φ = Math.acos(2 * Math.random() - 1);
+        const r = RADIUS * Math.cbrt(Math.random());
+
+        pos[i3]     = r * Math.sin(φ) * Math.cos(θ);
+        pos[i3 + 1] = r * Math.sin(φ) * Math.sin(θ);
+        pos[i3 + 2] = r * Math.cos(φ);
+
+        const c = new THREE.Color().setHSL(Math.random() * 0.6, 0.3 + 0.3 * Math.random(), 0.55 + 0.35 * Math.random());
+        col.set([c.r, c.g, c.b], i3);
+
+        size[i] = 0.25 + Math.pow(Math.random(), 4) * 2.1;
+        rnd[i] = Math.random() * Math.PI * 2;
+      }
+
+      geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+      geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
+      geo.setAttribute("size", new THREE.BufferAttribute(size, 1));
+      geo.setAttribute("random", new THREE.BufferAttribute(rnd, 1));
+
+      const mat = new THREE.ShaderMaterial({
+        uniforms: { time: { value: 0 } },
+        vertexShader: 
+          /* glsl */`
+          attribute float size;
+          attribute float random;
+          varying vec3 vColor;
+          varying float vRnd;
+          void main() {
+            vColor = color;
+            vRnd = random;
+            vec4 mv = modelViewMatrix * vec4(position, 1.0);
+            gl_PointSize = size * (250.0 / -mv.z);
+            gl_Position = projectionMatrix * mv;
+          }
+          `,
+        fragmentShader: 
+          /* glsl */`
+          uniform float time;
+          varying vec3 vColor;
+          varying float vRnd;
+          void main() {
+            vec2 uv = gl_PointCoord - 0.5;
+            float d = length(uv);
+            float a = 1.0 - smoothstep(0.4, 0.5, d);
+            a *= 0.7 + 0.3 * sin(time * (0.6 + vRnd * 0.3) + vRnd * 5.0);
+            if (a < 0.02) discard;
+            gl_FragColor = vec4(vColor, a);
+          }
+          `,
+        transparent: true,
+        depthWrite: false,
+        vertexColors: true,
+        blending: THREE.AdditiveBlending
+      });
+
+      return new THREE.Points(geo, mat);
+    }
+
+    function addHeartModel() {
+      const loader = new GLTFLoader();
+      loader.load(
+        "https://assets.codepen.io/74321/heart.glb",
+        gltf => {
+          heartModel = gltf.scene.children[0];
+          heartModel.scale.set(10, 10, 10);
+          heartModel.position.set(0, 0, 0);
+          // Tạo chất liệu đẹp
+         heartModel.material = new THREE.MeshStandardMaterial({
+  color: 0xFFD6F6,        
+  emissive: 0xFF79FB,
+  emissiveIntensity: 3.5,
+  metalness: 0.9,
+  roughness: 0.1
+});
+          scene.add(heartModel);
+        },
+        undefined,
+        error => {
+          console.error("Failed to load heart model:", error);
+        }
+      );
+    }
+
+    function init() {
+      const w = innerWidth;
+      const h = innerHeight;
+
+      scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x050203, 0.012);
+
+      camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 2500);
+      camera.position.set(0, 0, 80);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setPixelRatio(devicePixelRatio);
+      renderer.setSize(w, h);
+      document.getElementById("container").appendChild(renderer.domElement);
+
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.5;
+      controls.minDistance = 20;
+      controls.maxDistance = 200;
+      controls.target.set(0, 0, 0);
+
+      stars = createStars();
+      scene.add(stars);
+
+      addHeartModel(); // Thêm trái tim vào scene
+
+      composer = new EffectComposer(renderer);
+      composer.addPass(new RenderPass(scene, camera));
+
+      const bloom = new UnrealBloomPass(new THREE.Vector2(w, h), 0.45, 0.5, 0.85);
+
+      composer.addPass(bloom);
+
+      const after = new AfterimagePass();
+      after.uniforms.damp.value = 0.92;
+      composer.addPass(after);
+
+      composer.addPass(new OutputPass());
+
+      window.addEventListener("resize", () => {
+        const w = innerWidth;
+        const h = innerHeight;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+        composer.setSize(w, h);
+        bloom.resolution.set(w, h);
+      });
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+      controls.update();
+      stars.material.uniforms.time.value = t;
+      // Quay trái tim
+      if (heartModel) heartModel.rotation.y += 0.01;
+      composer.render();
+    }
+
+    init();
+    animate();
+  </script>
+  <script scr="heart.js"></script>
+</body>
+</html>
