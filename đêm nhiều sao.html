@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+            background: #99ccff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        canvas {
+            background: #FF9999;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="1920" height="1080"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const x = canvas.getContext('2d');
+        const C = Math.cos;
+        const S = Math.sin;
+        
+        const gradient = x.createLinearGradient(0, 0, canvas.width, canvas.height);
+        gradient.addColorStop(0, '#2A224A');
+        gradient.addColorStop(0.4, '#1A1257');
+        gradient.addColorStop(0.7, '#65447A');
+        gradient.addColorStop(1, '#7FC5DC');
+        x.fillStyle = gradient;
+        
+        function u(t) {
+            for(x.fillRect(x.globalAlpha=.1,0,i=19500,i),h=540;i--;x.clearRect(960-.4/C(i)/Z*h**1.1,540+S(l)/S(i)/Z*h,s=4/Z+3,s))Z=C(l=i*i+t/2)/S(i)+2+1/t
+        }
+        
+        function animate() {
+            const t = Date.now() * 0.0003;
+            try {
+                u(t);
+            } catch(e) {
+                // Ignore math errors
+            }
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+    </script>
+</body>
+</html>
