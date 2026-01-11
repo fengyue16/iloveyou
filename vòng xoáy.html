@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+            background: #0c1b3b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        canvas {
+            background:  #E0B0FF;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="1920" height="1080"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const x = canvas. getContext('2d');
+        const C = Math.cos;
+        const S = Math.sin;
+        
+        const gradient = x.createLinearGradient(0, 0, canvas.width, canvas.height);
+        gradient.addColorStop(0, '#000000');   
+        gradient.addColorStop(0.5, '#1b033d');
+        gradient.addColorStop(0.8, '#005f73'); 
+        gradient.addColorStop(1, '#0aefaf');   
+
+        x.fillStyle = gradient;
+        
+        function u(t) {
+            let w;
+            x.fillRect(x.globalAlpha=0.07, 0, w=2000, w);
+            for(let i=w; i--;) 
+                for(let j=20; j--;) {
+                    let k = i/99 + t;
+                    let r = Math.pow(j, S(i+j)+4.6)*j/10/j;
+                    x.clearRect(960+C(k)*r, S(k)*r/3+j*99, 1.5, 0.2);
+                }
+        }
+        
+        function animate() {
+            const t = Date.now() * 0.0003;
+            try {
+                u(t);
+            } catch(e) {
+                // Ignore math errors
+            }
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+    </script>
+</body>
+</html>
