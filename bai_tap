@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>div.first {
+  border: 1px solid black;
+  margin: 20px 20%;
+  text-align: center;
+}
+.author {
+  text-decoration: line-through;
+  font-weight: bold;
+  text-align: right;
+}
+#first {
+  text-decoration: underline double;
+}
+div.second {
+  border: 1px solid black;
+  margin: 40px 25%;
+  line-height: 2;
+}
+#second {
+  text-align: center;
+  font-size: 20px;
+  line-height: 1;
+}
+div.three {
+  border: 1px solid black;
+  margin: 40px 20%;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  
+}
+th, td {
+  border: 1px solid black; 
+  text-align: center;
+  
+}
+#name {
+  text-align: left;
+}
+caption {
+  caption-side: top;  
+  padding-bottom: 20px; 
+  padding-top: 8px;
+  font-weight: bold;
+}</style>
+
+</head>
+<body>
+  <h1>fengyue</h1>
+  <ol>
+ <li> 
+  <div class="first">
+  <h2 id="first">CÔ HÁI MƠ</h2>
+  <i>
+  <p>Thơ thẩn đường chiều một khách thơ,</p>
+  <p>Say nhìn xa rặng núi xanh lơ,</p>
+  <p>Khí trời lặng lẽ và trong trẻo,</p>
+  <p>Thấp thoáng rừng mơ, Cô hái mơ,</p>
+  <p class="author">Tác giả: Vô danh</p>
+ </i>
+  </div>
+  </li>
+<li>
+  <div class="second">
+    <h2 id="second">Văn bản chỉ số trên/dưới</h2>
+    <ol>
+      <li>AX<sup>2</sup> + BX + C = 0</li>
+      <li>Hôm nay thời tiết 37<sup>0</sup>C</li>
+      <li>H<sub>2</sub>O + CaCO<sub>3</sub></li>
+    </ol>
+  </div>
+</li>
+<li>
+  <div class="three">
+    <table>
+      <caption>KẾT QUẢ HỌC TẬP</caption>
+      <tr>
+        <th rowspan="2">Họ và tên học sinh</th>
+        <th colspan="2">Năm sinh</th>
+        <th rowspan="2">Điểm TB</th>
+        <th rowspan="2">Xếp loại</th>
+      </tr>
+      <tr>
+        <th>Nam</th>
+        <th>Nữ</th>
+      </tr>
+      <tr>
+        <td id="name">Nguyễn Văn Anh</td>
+        <td>2008</td>
+        <td></td>
+        <td>8.5</td>
+        <td>Giỏi</td>
+      </tr>
+      <tr>
+        <td id="name">Hồ Xuân Hiếu</td>
+        <td>2008</td>
+        <td></td>
+        <td>6.5</td>
+        <td>Khá</td>
+      </tr>
+      <tr>
+        <td id="name">Nguyễn Thị An</td>
+        <td></td>
+        <td>2008</td>
+        <td>7.8</td>
+        <td>Khá</td>
+      </tr>
+      <tr>
+        <td id="name">Trần Văn Khải</td>
+        <td>2008</td>
+        <td></td>
+        <td>9.2</td>
+        <td>Xuất sắc</td>
+      </tr>
+      <tr>
+        <td id="name">Lê Bảo An</td>
+        <td></td>
+        <td>2008</td>
+        <td>8.6</td>
+        <td>Giỏi</td>
+      </tr>
+     
+    </table>
+  </div>
+</li>
+  </ol>
+</body>
+</html>
