@@ -1,6 +1,6 @@
 # myproject
-|￣￣￣￣￣￣￣￣|
-|  MY PROJECT   |
+|￣￣￣￣￣￣￣￣|\n
+|  MY PROJECT   |\n
 |    HERE      |
 |_____________|
 (\__/) ||
